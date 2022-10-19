@@ -1,0 +1,73 @@
+openapi: 3.0.1
+info:
+  title: Greeter App
+  description: Example service
+  version: 0.1.0
+servers:
+  - url: http://{hostname}/api/v1
+    variables:
+      hostname:
+        default: localhost
+
+paths:
+  /greet:
+    get:
+      summary: "Get greeting"
+      tags:
+        - Greeter
+      parameters:
+        - in: query
+          name: name
+          required: false
+          schema:
+            type: string
+            example: "Alexander"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GreetingResponse"
+    patch:
+      summary: "Modify greeting for user"
+      tags:
+        - Greeter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GreetingUpdate"
+      responses:
+        204:
+          description: Success
+        400:
+          description: Bad request
+
+components:
+  schemas:
+    GreetingResponse:
+      required:
+        - text
+      properties:
+        text:
+          type: string
+    GreetingUpdate:
+      description: "Modify greeting for all or specific user with target field"
+      required:
+        - target
+        - template
+      properties:
+        target:
+          type: string
+          description: "target user name to specify greeting for"
+        template:
+          type: string
+          description: "$1 is a target name"
+          example: "Hello $1. Have a nice day!"
+    Error:
+      required:
+        - msg
+      properties:
+        msg:
+          type: string

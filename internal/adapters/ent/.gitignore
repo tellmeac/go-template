@@ -1,0 +1,7 @@
+*
+!.gitignore
+!generate.go
+!constructor.go
+!schema
+!schema/*
+!./migrate/main.go
