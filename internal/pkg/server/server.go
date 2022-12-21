@@ -7,8 +7,8 @@ import (
 	"github.com/tellmeac/go-template/internal/config"
 )
 
-type Attacher interface {
-	Attach(router gin.IRouter)
+type Binder interface {
+	Bind(router gin.IRouter)
 }
 
 func New(cfg config.Config, middlewares ...gin.HandlerFunc) Server {
@@ -33,9 +33,9 @@ type Server struct {
 	*http.Server
 }
 
-func (s Server) Attach(a Attacher) {
+func (s Server) Bind(a Binder) {
 	if a == nil {
 		return
 	}
-	a.Attach(s.Handler.(*gin.Engine))
+	a.Bind(s.Handler.(*gin.Engine))
 }

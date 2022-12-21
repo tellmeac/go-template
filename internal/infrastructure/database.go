@@ -1,12 +1,13 @@
-package adapters
+package infrastructure
 
 import (
 	"database/sql"
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
 	"fmt"
-	"github.com/tellmeac/go-template/internal/adapters/ent"
 	"github.com/tellmeac/go-template/internal/config"
+	"github.com/tellmeac/go-template/internal/infrastructure/ent"
+
 	// Required to connect to postgres database
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
@@ -17,14 +18,7 @@ func NewDatabaseClient(cfg config.Config) (*ent.Client, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to database: %w", err)
 	}
+	drv := ent.Driver(entsql.OpenDB(dialect.Postgres, db))
 
-	drv := entsql.OpenDB(dialect.Postgres, db)
-
-	client := ent.NewClient(ent.Driver(drv))
-
-	if cfg.Debug {
-		client = client.Debug()
-	}
-
-	return client, nil
+	return ent.NewClient(drv), nil
 }

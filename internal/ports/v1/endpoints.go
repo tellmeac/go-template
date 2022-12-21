@@ -16,7 +16,7 @@ type Endpoints struct {
 	app *app.App
 }
 
-func (e Endpoints) Attach(router gin.IRouter) {
+func (e Endpoints) Bind(router gin.IRouter) {
 	router.GET("/api/v1/greet", e.GetGreeting)
 	router.PATCH("/api/v1/greet", e.ModifyGreeting)
 }

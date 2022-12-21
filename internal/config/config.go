@@ -27,7 +27,7 @@ func Get() Config {
 
 		var config Config
 		if err := cleanenv.ReadEnv(&config); err != nil {
-			log.Fatal().Err(err).Msg("failed to read config from environment")
+			log.Fatal().Err(err).Msg("Failed to read config from environment")
 		}
 		instance = &config
 	})

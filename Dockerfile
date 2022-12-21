@@ -11,7 +11,7 @@ ENV CGO_ENABLED=0
 
 RUN go generate ./...
 RUN go test ./...
-RUN go build -o app .
+RUN go build -o app ./cmd/server/main.go
 
 FROM alpine:3
 

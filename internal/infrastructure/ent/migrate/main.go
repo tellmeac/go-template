@@ -1,11 +1,13 @@
+//go:build ignore
+
 package main
 
 import (
 	"context"
 	"entgo.io/ent/dialect/sql/schema"
 	"flag"
-	"github.com/tellmeac/go-template/internal/adapters/ent/migrate"
-	"log"
+	"github.com/rs/zerolog/log"
+	"github.com/tellmeac/go-template/internal/infrastructure/ent/migrate"
 	"os"
 
 	atlas "ariga.io/atlas/sql/migrate"
@@ -19,7 +21,7 @@ func main() {
 
 	dir, err := atlas.NewLocalDir("migrations")
 	if err != nil {
-		log.Fatalf("Failed to init atlas migration directory: %v", err)
+		log.Fatal().Err(err).Msgf("Failed to init atlas migration directory: %v", err)
 	}
 
 	// Migrate diff options.
@@ -31,15 +33,15 @@ func main() {
 	}
 
 	if len(os.Args) != 2 {
-		log.Fatalln("Migration name is required. Use: 'go run -mod=mod migrations.go <name>'")
+		log.Fatal().Msg("Migration name is required. Use: 'go run -mod=mod migrations.go <name>'")
 	}
 
-	addr := flag.String("url", "postgres://postgres:postgres@localhost:5432/Greetings?sslmode=disable", "")
+	addr := flag.String("url", "postgres://postgres:postgres@localhost:5432/Test?sslmode=disable", "")
 	flag.Parse()
 
 	// Generate migrations using Atlas
 	err = migrate.NamedDiff(ctx, *addr, os.Args[1], opts...)
 	if err != nil {
-		log.Fatalf("Failed generating migration file: %v", err)
+		log.Fatal().Msgf("Failed generating migration file: %v", err)
 	}
 }

@@ -1,10 +1,10 @@
-package adapters
+package infrastructure
 
 import (
 	"context"
 	"fmt"
-	"github.com/tellmeac/go-template/internal/adapters/ent"
-	"github.com/tellmeac/go-template/internal/adapters/ent/templates"
+	"github.com/tellmeac/go-template/internal/infrastructure/ent"
+	"github.com/tellmeac/go-template/internal/infrastructure/ent/templates"
 	"github.com/tellmeac/go-template/internal/pkg/errors"
 )
 
