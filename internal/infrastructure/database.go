@@ -6,7 +6,7 @@ import (
 	entsql "entgo.io/ent/dialect/sql"
 	"fmt"
 	"github.com/tellmeac/go-template/internal/config"
-	"github.com/tellmeac/go-template/internal/infrastructure/ent"
+	"github.com/tellmeac/go-template/internal/store/ent"
 
 	// Required to connect to postgres database
 	_ "github.com/jackc/pgx/v5/stdlib"
