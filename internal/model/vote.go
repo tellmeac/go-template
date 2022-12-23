@@ -2,7 +2,7 @@ package model
 
 import "github.com/oklog/ulid/v2"
 
-type VoteRequest struct {
+type VoteRecord struct {
 	UserID       string
 	PollPlayerID ulid.ULID `json:"pollPlayerId"`
 	AnswerIDs    []int     `json:"answerIds"`
