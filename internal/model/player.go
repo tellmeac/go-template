@@ -1,4 +1,4 @@
-package models
+package model
 
 import (
 	"github.com/tellmeac/go-template/pkg/ulid"
@@ -7,6 +7,12 @@ import (
 )
 
 var timeNow = time.Now
+
+type PollPlayerPost struct {
+	PollID                 ulid.ULID  `json:"pollId"`
+	CloseAt                *time.Time `json:"closeAt"`
+	MultipleAnswersAllowed bool       `json:"multipleAnswersAllowed"`
+}
 
 func StartPlayer(poll Poll, closeAt *time.Time, multipleAllowed bool) (*PollPlayer, error) {
 	now := timeNow()

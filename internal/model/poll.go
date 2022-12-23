@@ -1,6 +1,11 @@
-package models
+package model
 
 import "github.com/tellmeac/go-template/pkg/ulid"
+
+type PollPost struct {
+	Question       string   `json:"question"`
+	AnswersContent []string `json:"answers"`
+}
 
 type Poll struct {
 	ID           ulid.ULID `json:"id"`
