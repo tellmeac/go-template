@@ -14,10 +14,10 @@ type PollPlayerPost struct {
 	MultipleAnswersAllowed bool       `json:"multipleAnswersAllowed"`
 }
 
-func StartPlayer(poll Poll, closeAt *time.Time, multipleAllowed bool) (*PollPlayer, error) {
+func StartPlayer(poll Poll, closeAt *time.Time, multipleAllowed bool) (PollPlayer, error) {
 	now := timeNow()
 	if closeAt != nil && now.After(*closeAt) {
-		return nil, NewError("start date after close date").WithCode(http.StatusBadRequest)
+		return PollPlayer{}, NewError("start date after close date").WithCode(http.StatusBadRequest)
 	}
 
 	counters := make([]AnswerCounter, 0, len(poll.Answers))
@@ -28,7 +28,7 @@ func StartPlayer(poll Poll, closeAt *time.Time, multipleAllowed bool) (*PollPlay
 		})
 	}
 
-	return &PollPlayer{
+	return PollPlayer{
 		ID:              ulid.New(timeNow()),
 		PollID:          poll.ID,
 		StartAt:         now,
