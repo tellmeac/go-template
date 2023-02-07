@@ -1,11 +1,7 @@
 # Планы по улучшению шаблона.
 
-- [ ] Усложнить пример - приложение для голосования
-- [ ] Линтер
-- [ ] Makefile с основными коммандами (и startup тоже)
-- [ ] Версионирование файлоам version.txt
-- [ ] Readme файл по содержанию шаблона и его решениях
-- [ ] Более общая структура проекта (internal, cmd, models и прочее)
-- [ ] Потенциальный пример без DDD (Под вопросом)
-- [ ] Метрики
-- [ ] Идея с Command Query Segregation (Под вопросом)
+- [ ] Remove uber.fx usage.
+- [ ] Replace zerolog with zap for logging - best performance.
+- [ ] Refactor commands with cobra pkg.
+- [ ] Root config that aggregates all local configs.
+- [ ] Use squirrel as sql query builder instead of ent.
