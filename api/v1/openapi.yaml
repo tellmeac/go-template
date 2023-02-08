@@ -1,7 +1,8 @@
 openapi: 3.0.1
 info:
-  title: Greeter App
-  description: Example service
+  title: Example App
+  description: |
+    Exploring application, that uses specific idea of go project templating.
   version: 0.1.0
 servers:
   - url: http://{hostname}/api/v1
@@ -10,64 +11,33 @@ servers:
         default: localhost
 
 paths:
-  /greet:
+  /users/{id}:
     get:
-      summary: "Get greeting"
+      summary: "Get user"
       tags:
-        - Greeter
+        - Users
       parameters:
-        - in: query
-          name: name
-          required: false
+        - in: path
+          name: id
+          required: true
           schema:
             type: string
-            example: "Alexander"
+            format: uuid
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GreetingResponse"
-    patch:
-      summary: "Modify greeting for user"
-      tags:
-        - Greeter
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/GreetingUpdate"
-      responses:
-        204:
-          description: Success
-        400:
-          description: Bad request
-
+                $ref: "#/components/schemas/User"
 components:
   schemas:
-    GreetingResponse:
-      required:
-        - text
+    User:
       properties:
-        text:
+        id:
           type: string
-    GreetingUpdate:
-      description: "Modify greeting for all or specific user with target field"
-      required:
-        - target
-        - template
-      properties:
-        target:
+          format: uuid
+        name:
           type: string
-          description: "target user name to specify greeting for"
-        template:
-          type: string
-          description: "$1 is a target name"
-          example: "Hello $1. Have a nice day!"
-    Error:
-      required:
-        - msg
-      properties:
-        msg:
-          type: string
+          example: "Alexander"
+

@@ -2,27 +2,12 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:1.14
     container_name: postgres
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    restart: always
-
-  app:
-    image: app
-    container_name: app
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
-    environment:
-      DATABASE_ADDRESS: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
-      DEBUG: "true"
-    depends_on:
-      - postgres
+      POSTGRES_DB: "Example"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
     restart: always
