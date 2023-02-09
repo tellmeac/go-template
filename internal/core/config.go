@@ -1,28 +1,29 @@
 package core
 
 import (
-	"context"
-
-	"github.com/heetch/confita"
+	"github.com/spf13/viper"
 	"github.com/tellmeac/go-template/internal/storage/db"
 )
 
 type Config struct {
 	Debug  bool `yaml:"debug"`
 	Server struct {
-		Listen string `yaml:"addr"`
+		Listen string `yaml:"listen"`
 	} `yaml:"server"`
 	Storage db.StorageConfig `yaml:"storage"`
 }
 
-func ParseConfig(ctx context.Context, loader *confita.Loader) (*Config, error) {
+func ParseConfig(loader *viper.Viper) (*Config, error) {
 	conf := &Config{}
 
-	if loader != nil {
-		err := loader.Load(ctx, conf)
-		if err != nil {
-			return nil, err
-		}
+	loader.Debug()
+
+	if err := loader.ReadInConfig(); err != nil {
+		return nil, err
+	}
+
+	if err := loader.Unmarshal(conf); err != nil {
+		return nil, err
 	}
 
 	return conf, nil

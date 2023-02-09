@@ -14,7 +14,7 @@ func (a *App) repoContextHandlerAdapter(handler func(ctx *gin.Context, repo *com
 }
 
 func handleError(ctx *gin.Context, err error) {
-	if err != nil {
+	if err == nil {
 		return
 	}
 

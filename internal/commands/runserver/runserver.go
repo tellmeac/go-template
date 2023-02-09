@@ -2,16 +2,17 @@ package runserver
 
 import (
 	"context"
-	"github.com/heetch/confita"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"github.com/tellmeac/go-template/internal/commands"
 	"github.com/tellmeac/go-template/internal/core"
 	"github.com/tellmeac/go-template/internal/server"
+	xcommands "github.com/tellmeac/go-template/pkg/commands"
 )
 
-func CommandCreator(ctx context.Context, _ *cobra.Command, loader *confita.Loader,
-) (*core.Config, *Command, error) {
-	conf, err := core.ParseConfig(ctx, loader)
+func CommandCreator(_ context.Context, _ *cobra.Command, configLoader *viper.Viper,
+) (*core.Config, xcommands.Command, error) {
+	conf, err := core.ParseConfig(configLoader)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -34,5 +35,8 @@ type Command struct {
 }
 
 func (c *Command) Run() error {
-	app := server.New()
+	app := server.New(c.NewRepository())
+	// TODO: go func with ctx.Done handle to stop app
+
+	return app.Start(c.Context())
 }

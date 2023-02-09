@@ -14,6 +14,8 @@ func New(repo *commands.Repository) *App {
 		repo:   repo,
 	}
 
+	app.InitRoutes(app.GetRoutes())
+
 	return &app
 }
 

@@ -1,0 +1,5 @@
+debug: false
+server:
+  listen: ":80"
+storage:
+  connectionString: "user=postgres password=postgres host=localhost port=5432 dbname=ExampleApp sslmode=disable pool_max_conns=10"
