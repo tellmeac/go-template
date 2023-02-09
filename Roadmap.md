@@ -6,3 +6,4 @@
 - [ ] Use squirrel as sql query builder instead of ent.
 - [ ] Context logger, as a wrapper for zap.
 - [ ] tracing spans for important locations in code.
+- [ ] Prepare pkg to be shared across projects. web.Server/ storage.Storage/ schema/json/ logging/, etc.
