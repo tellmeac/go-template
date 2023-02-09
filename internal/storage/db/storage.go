@@ -5,18 +5,18 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-type Config struct {
+type StorageConfig struct {
 	ConnectionString string `yaml:"connectionString"`
 }
 
 type Storage struct {
-	Config Config
+	Config StorageConfig
 	Pool   *pgxpool.Pool
 
 	User UserMapper
 }
 
-func NewStorage(ctx context.Context, config Config) (*Storage, error) {
+func NewStorage(ctx context.Context, config StorageConfig) (*Storage, error) {
 	var err error
 
 	storage := &Storage{

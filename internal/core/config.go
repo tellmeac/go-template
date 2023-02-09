@@ -10,9 +10,9 @@ import (
 type Config struct {
 	Debug  bool `yaml:"debug"`
 	Server struct {
-		Port int `yaml:"port"`
+		Listen string `yaml:"addr"`
 	} `yaml:"server"`
-	Storage db.Storage `yaml:"storage"`
+	Storage db.StorageConfig `yaml:"storage"`
 }
 
 func ParseConfig(ctx context.Context, loader *confita.Loader) (*Config, error) {
