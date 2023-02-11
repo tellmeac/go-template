@@ -5,33 +5,37 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/tellmeac/go-template/internal/commands"
 	"github.com/tellmeac/go-template/pkg/web"
-	"net/http"
 )
 
 func New(repo *commands.Repository) *App {
 	app := App{
-		server: gin.Default(),
-		repo:   repo,
+		repo: repo,
 	}
 
 	app.InitRoutes(app.GetRoutes())
+	app.server = web.NewServer(repo.Config.ServerConfig, app.router)
 
 	return &app
 }
 
 type App struct {
 	// TODO: custom WebApp with all useful routes and configurations
-	server *gin.Engine
+	// TODO: Should I replace gin with something more standard, like chi, gorilla/mux ?
+	server web.Server
+	router *gin.Engine
 	repo   *commands.Repository
 }
 
-func (a *App) Start(_ context.Context) error {
-	// TODO: use pkg for WebApp with pprof routes, pingRouter, ctx and etc
-	return http.ListenAndServe(a.repo.Config.Server.Listen, a.server)
+func (a *App) Start(ctx context.Context) error {
+	return a.server.Start(ctx)
+}
+
+func (a *App) Stop(ctx context.Context) error {
+	return a.server.Stop(ctx)
 }
 
 func (a *App) InitRoutes(routes []web.Route) {
 	for _, r := range routes {
-		a.server.Handle(r.Method, r.Path, r.Handler)
+		a.router.Handle(r.Method, r.Path, r.Handler)
 	}
 }
