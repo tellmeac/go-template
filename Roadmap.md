@@ -11,9 +11,10 @@
 - [ ] tracing spans for important locations in code (almost everywhere).
 - [ ] More complicated, real world example
 - Prepare infrastructure packages.  
-  - [ ] Web package with http.Client (prod. ready) WebServer interface with Gin impl.
+  - [ ] Web package with http.Client (prod. ready) 
+  - [x] WebServer interface with Gin impl.
   - [ ] commands package with some impls (BaseCommand, StorageCommand)
   - [ ] storage package with Connectable interface (Connect, Disconnect)
-  - [ ] schema/json/ 
-  - [ ] Context logger with zap as engine
+  - [x] schema/json/ 
+  - [x] Context logger with zap as engine
   - [ ] etc
