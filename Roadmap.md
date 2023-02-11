@@ -9,6 +9,7 @@
 - [x] Use squirrel as sql query builder instead of ent.
 - [ ] Context logger, as a wrapper for zap (just for joining values from upper scope to down).
 - [ ] tracing spans for important locations in code (almost everywhere).
+- [ ] More complicated example
 - Prepare infrastructure packages.  
   - [ ] Web package with http.Client (prod. ready) WebServer interface with Gin impl.
   - [ ] commands package with some impls (BaseCommand, StorageCommand)
