@@ -5,8 +5,14 @@
 - [x] Root config that aggregates all local configs.
 - [x] Root repository
 - [x] No application interfaces
-- [ ] TestSuite Integration testing without mocks. 
+- [ ] TestSuite Integration testing with less mocks (because no Interfaces). 
 - [x] Use squirrel as sql query builder instead of ent.
-- [ ] Context logger, as a wrapper for zap.
-- [ ] tracing spans for important locations in code.
-- [ ] Prepare pkg to be shared across other projects. web.Server/ storage.Storage/ schema/json/ logging/, etc.
+- [ ] Context logger, as a wrapper for zap (just for joining values from upper scope to down).
+- [ ] tracing spans for important locations in code (almost everywhere).
+- Prepare infrastructure packages.  
+  - [ ] Web package with http.Client (prod. ready) WebServer interface with Gin impl.
+  - [ ] commands package with some impls (BaseCommand, StorageCommand)
+  - [ ] storage package with Connectable interface (Connect, Disconnect)
+  - [ ] schema/json/ 
+  - [ ] Context logger with zap as engine
+  - [ ] etc
