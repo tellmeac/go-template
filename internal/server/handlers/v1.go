@@ -16,7 +16,7 @@ func GetUser(ctx *gin.Context, repo *commands.Repository) error {
 		return json.APIError(ctx, http.StatusBadRequest, fmt.Errorf("argument 'id': %w", err))
 	}
 
-	user, err := actions.GetUserAction(ctx, id, repo.Storage)
+	user, err := actions.GetUser(ctx, id, repo.Storage)
 	if err != nil {
 		// TODO: not always internal server error
 		return json.APIError(ctx, http.StatusInternalServerError, err)

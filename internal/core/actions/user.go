@@ -8,6 +8,6 @@ import (
 	"github.com/tellmeac/go-template/internal/core/entities"
 )
 
-func GetUserAction(ctx context.Context, uid uuid.UUID, db *db.Storage) (*entities.User, error) {
+func GetUser(ctx context.Context, uid uuid.UUID, db *db.Storage) (*entities.User, error) {
 	return db.User.Get(ctx, uid)
 }
