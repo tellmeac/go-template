@@ -1,0 +1,110 @@
+openapi: 3.0.1
+info:
+  version: 0.1.0
+  title: StudyCards
+  description: |
+    Show me what you need to study and I will help you.
+    
+    ## Concept
+    
+    - Create a plan with some cards
+    - Get random card
+    - Freeze well known cards
+    - Modify cards in a plan
+servers:
+  - url: http://{hostname}/api/v1
+    variables:
+      hostname:
+        default: localhost
+
+paths:
+  /plans:
+    post:
+      summary: "Create a new plan"
+      tags:
+        - Plans
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewPlanRequest"
+      responses:
+        200:
+          description: OK
+    get:
+      summary: "Get plans"
+      tags:
+        - Plans
+      parameters:
+        - in: query
+          required: false
+          name: search
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PlanResponse"
+  /plans/{id}/cards:
+    get:
+      summary: "Get a random card"
+      tags:
+        - Cards
+      parameters:
+        - in: path
+          required: true
+          name: id
+          example: 1
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Card"
+
+
+components:
+  schemas:
+    NewPlanRequest:
+      required:
+        - title
+        - cards
+      properties:
+        title:
+          type: string
+          example: "Sorting algorithms!"
+        cards:
+          type: array
+          items:
+            $ref: "#/components/schemas/Card"
+    PlanResponse:
+      required:
+        - title
+        - cards
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: "Sorting algorithms!"
+        cards:
+          type: array
+          items:
+            $ref: "#/components/schemas/Card"
+    Card:
+      required:
+        - question
+      properties:
+        question:
+          type: string
+          example: "Types of sorting algorithms"
+        answer:
+          nullable: true
+          type: string
+          example: "Comparison, numeric and radix"
+
