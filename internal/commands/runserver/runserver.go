@@ -36,7 +36,7 @@ type Command struct {
 
 func (c *Command) Run() error {
 	app := server.New(c.NewRepository())
-	// TODO: go func with ctx.Done handle to stop app
+	// TODO: go func with ctx.Done to handle command shutdown
 
 	return app.Start(c.Context())
 }

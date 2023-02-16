@@ -2,7 +2,6 @@ package web
 
 import (
 	"context"
-	"crypto/tls"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
@@ -62,15 +61,13 @@ func NewServer(config ServerConfig, handler *gin.Engine) *BaseServer {
 		ReadHeaderTimeout: config.ReadHeaderTimeout,
 		WriteTimeout:      config.WriteTimeout,
 		IdleTimeout:       config.IdleTimeout,
-		TLSConfig:         &tls.Config{},
 	}
 
 	return s
 }
 
 func (s *BaseServer) Start(ctx context.Context) error {
-	// TODO: Profile routes
-	// targetRouter := s.Router()
+	// TODO: Profile routes with Profile options check
 
 	s.Router().GET("/live", func(_ *gin.Context) {})
 	s.Router().GET("/ping", s.getPing)

@@ -11,7 +11,7 @@ func (a *App) GetRoutes() []web.Route {
 		{
 			Path:    "api/v1/users/:id",
 			Method:  http.MethodGet,
-			Handler: a.repoContextHandlerAdapter(handlers.GetUser),
+			Handler: a.handlerAdapter(handlers.GetUser),
 		},
 	}
 }

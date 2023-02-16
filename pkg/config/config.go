@@ -25,7 +25,7 @@ func WithEnvKeyReplacement(oldnew ...string) LoaderOption {
 	}
 }
 
-func PrepareLoader(options ...LoaderOption) (*viper.Viper, error) {
+func PrepareLoader(options ...LoaderOption) *viper.Viper {
 	v := viper.New()
 	v.AutomaticEnv()
 	// Default env key replacing, can be overridden with options.
@@ -34,5 +34,5 @@ func PrepareLoader(options ...LoaderOption) (*viper.Viper, error) {
 		opt(v)
 	}
 
-	return v, nil
+	return v
 }

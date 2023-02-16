@@ -2,12 +2,7 @@ package commands
 
 import (
 	"context"
-	"errors"
 	"time"
-)
-
-var (
-	ErrCommandTimeout = errors.New("command timeout")
 )
 
 type Command interface {

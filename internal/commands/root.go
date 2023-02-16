@@ -8,74 +8,50 @@ import (
 	"github.com/tellmeac/go-template/internal/core"
 	"github.com/tellmeac/go-template/pkg/commands"
 	"github.com/tellmeac/go-template/pkg/config"
-	"go.uber.org/zap"
 )
 
+// Options stores common values for a command.
 type Options struct {
 	ConfigPath string
-	LogLevel   string
 }
 
 var options Options
 
+// AddDefaultFlagSet provides default flag set to command.
 func AddDefaultFlagSet(cmd *cobra.Command) {
 	cmd.PersistentFlags().StringVarP(&options.ConfigPath, "config", "c",
-		"./config.yaml", "Config file path")
-	cmd.PersistentFlags().StringVarP(&options.LogLevel, "level", "l",
-		zap.DebugLevel.String(), "Log level")
+		"./config.yaml", "Configuration file path")
 }
 
+// Creator represents a builder function for any application command.
 type Creator func(
 	ctx context.Context,
 	cmd *cobra.Command,
-	config *viper.Viper,
+	configLoader *viper.Viper,
 ) (*core.Config, commands.Command, error)
 
+// RunCommand returns ready to use cobra run function.
 func RunCommand(creator Creator) func(cmd *cobra.Command, args []string) error {
-	ctx := context.Background()
-	f := makeInitFunc(ctx, creator)
+	confLoader := config.PrepareLoader(
+		config.WithConfigPath(options.ConfigPath),
+	)
 
 	return func(cmd *cobra.Command, args []string) error {
-		var err error
+		ctx := context.Background()
 
-		_, command, err := f(cmd)
+		_, command, err := creator(ctx, cmd, confLoader)
 		if err != nil {
 			return err
 		}
 		if command == nil {
-			return errors.New("CommandCreator returned nil command")
+			return errors.New("creator returned nil command")
 		}
 
-		// TODO: setup logging
-		//logLevel, err := log.ParseLevel(options.LogLevel)
-		//if err != nil {
-		//	return err
-		//}
-
-		// TODO: Wrapper that uses commands.Command interface to perform it like commands.Main(ctx, logLevel, ...)
 		err = command.Init(ctx)
 		if err != nil {
 			return err
 		}
 
 		return command.Run()
-	}
-}
-
-func makeInitFunc(ctx context.Context, creator Creator) func(*cobra.Command) (*core.Config, commands.Command, error) {
-	return func(cmd *cobra.Command) (*core.Config, commands.Command, error) {
-		configLoader, err := config.PrepareLoader(
-			config.WithConfigPath(options.ConfigPath),
-		)
-		if err != nil {
-			return nil, nil, err
-		}
-
-		conf, command, err := creator(ctx, cmd, configLoader)
-		if err != nil {
-			return nil, nil, err
-		}
-
-		return conf, command, nil
 	}
 }

@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/tellmeac/go-template/internal/commands"
 	"github.com/tellmeac/go-template/internal/core/actions"
-	"github.com/tellmeac/go-template/pkg/schema/json"
+	"github.com/tellmeac/go-template/pkg/web/schema/json"
 	"net/http"
 )
 

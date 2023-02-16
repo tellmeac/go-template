@@ -19,8 +19,6 @@ func New(repo *commands.Repository) *App {
 }
 
 type App struct {
-	// TODO: custom WebApp with all useful routes and configurations
-	// TODO: Should I replace gin with something more standard, like chi, gorilla/mux ?
 	server web.Server
 	router *gin.Engine
 	repo   *commands.Repository

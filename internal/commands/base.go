@@ -8,12 +8,12 @@ import (
 )
 
 // BaseCommand содержит в себе общую логику инициализации команд.
-// TODO: вынести db.Storage, добавить клиенты метрик, трейсинга и чего-нибудь еще.
+// TODO: metrics, tracing and other stuff
 type BaseCommand struct {
 	commands.BaseCommand
 
 	Config  *core.Config
-	Storage *db.Storage // Should be in StorageCommand
+	Storage *db.Storage
 }
 
 func (c *BaseCommand) Init(ctx context.Context) error {

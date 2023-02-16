@@ -3,10 +3,10 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/tellmeac/go-template/internal/commands"
-	"github.com/tellmeac/go-template/pkg/schema/json"
+	"github.com/tellmeac/go-template/pkg/web/schema/json"
 )
 
-func (a *App) repoContextHandlerAdapter(handler func(ctx *gin.Context, repo *commands.Repository) error) gin.HandlerFunc {
+func (a *App) handlerAdapter(handler func(ctx *gin.Context, repo *commands.Repository) error) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		err := handler(ctx, a.repo)
 		handleError(ctx, err)

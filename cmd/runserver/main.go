@@ -10,7 +10,7 @@ import (
 func main() {
 	cmd := &cobra.Command{
 		Use:   "runserver",
-		Short: "user run server",
+		Short: "start server",
 		RunE:  commands.RunCommand(runserver.CommandCreator),
 	}
 
